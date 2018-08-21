@@ -1,0 +1,15 @@
+<!doctype html>
+<html>
+   <body link="black" vlink="grey" alink="grey">      
+        
+		<h1>{{ url }}</h1>
+		
+		<hr>
+		
+		{% for value in result %}         
+			<p  style="font-family:Arial; font-size: 13px;"> {{ loop.index }} <a href="{{ value.link }}" style="text-decoration: none" > {{ value.title }}</a></p>    
+        {% endfor %}
+      
+      
+   </body>
+</html>
