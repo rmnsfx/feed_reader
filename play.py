@@ -16,32 +16,6 @@ app.config['TESTING'] = False
 
 name_list = []
 
-# name_list = [
-# "Flume+ezra",
-# "Rawls+Errday+99",
-# "Hollow+Clouds+Lopez+Theme",
-# "Devotion+Uppermost",
-# "Daft+Punk+Revolution+909",
-# "Miike+Snow+Genghis+Khan",
-# "Air+Playground+love",
-# "Gorillaz+Empire+Ants",
-# "Tame+Impala+The+less+I+know+the+better",
-# "Tame+Impala+Let+it+happen",
-# "Washed+out+Feel+it+all+around",
-# "Foster+the+people+Dont+stop-remix",
-# "Michael+Gray+Thee+Weekend",
-# "David+Morales+Needin+U",
-# "Air+La+femme+argent",
-# "Tim+Deluxe+It+just+wont+do",
-# "Junior+Jack+E+samba",
-# "Michael+Gray+Borderline",
-# "Axwell+Watch+the+sunrise",
-# "C+Mos+2+Million+ways+axwell+remix",
-# "Laurent+Wolf+Calinda",
-# "Rui+Da+Silva+Touch+me",
-# "Salome+de+bahia+Outro+lugar",
-# "Basement+Jaxx+Bingo+Bango",
-# ]
 
 def get_name_list():
     
@@ -67,8 +41,8 @@ def home():
     
     name_list = get_name_list()
     
-    for item in name_list:    
-        print(item)
+    # for item in name_list:    
+        # print(item)
     
     if request.method == 'GET':
         return render_template('video.html') 
@@ -89,7 +63,7 @@ def home():
                 
                 if Instance == None:             
                                     
-                    Instance = vlc.Instance('--no-video')                   
+                    Instance = vlc.Instance('--no-video --verbose=2 --file-logging --logfile=vlc_log.txt --sout-keep --no-sout-all')                   
                                     
                     for item in videolist[0:1]:
                         
@@ -104,9 +78,13 @@ def home():
                         else:
                             print(video.title, video.duration)
                             
+                            options = ':sout=#transcode{vcodec=none,acodec=mp3,ab=128,channels=2,samplerate=44100,scodec=none}:http{mux=mp3,dst=:8080/}' 
+                                                        
                             player = Instance.media_player_new()
-                            Media = Instance.media_new(best.url)
+                            Media = Instance.media_new(best.url, options)
                             Media.get_mrl()
+                                                    
+                            
                             player.set_media(Media)                
                             player.audio_set_volume(100)
                             player.play()                     

@@ -33,7 +33,7 @@ h1 {
 }
 
 /* Style the button used to pause/play the video */
-#myBtn {
+#submit {
   width: 150px;
   height: 100px;
   font-size: 18px;
@@ -44,7 +44,7 @@ h1 {
   cursor: pointer;
 }
 
-#myBtn:hover {
+#submit:hover {
   background: #ddd;
   color: black;
 } 
