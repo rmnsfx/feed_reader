@@ -14,38 +14,64 @@ import random
 app = Flask(__name__)
 app.config['TESTING'] = False
 
-name_list = [
-"Flume+ezra",
-"Rawls+Errday+99",
-"Hollow+Clouds+Lopez+Theme",
-"Devotion+Uppermost",
-"Daft+Punk+Revolution+909",
-"Miike+Snow+Genghis+Khan",
-"Air+Playground+love",
-"Gorillaz+Empire+Ants",
-"Tame+Impala+The+less+I+know+the+better",
-"Tame+Impala+Let+it+happen",
-"Washed+out+Feel+it+all+around",
-"Foster+the+people+Dont+stop-remix",
-"Michael+Gray+Thee+Weekend",
-"David+Morales+Needin+U",
-"Air+La+femme+argent",
-"Tim+Deluxe+It+just+wont+do",
-"Junior+Jack+E+samba",
-"Michael+Gray+Borderline",
-"Axwell+Watch+the+sunrise",
-"C+Mos+2+Million+ways+axwell+remix",
-"Laurent+Wolf+Calinda",
-"Rui+Da+Silva+Touch+me",
-"Salome+de+bahia+Outro+lugar",
-"Basement+Jaxx+Bingo+Bango",
-]
+name_list = []
+
+# name_list = [
+# "Flume+ezra",
+# "Rawls+Errday+99",
+# "Hollow+Clouds+Lopez+Theme",
+# "Devotion+Uppermost",
+# "Daft+Punk+Revolution+909",
+# "Miike+Snow+Genghis+Khan",
+# "Air+Playground+love",
+# "Gorillaz+Empire+Ants",
+# "Tame+Impala+The+less+I+know+the+better",
+# "Tame+Impala+Let+it+happen",
+# "Washed+out+Feel+it+all+around",
+# "Foster+the+people+Dont+stop-remix",
+# "Michael+Gray+Thee+Weekend",
+# "David+Morales+Needin+U",
+# "Air+La+femme+argent",
+# "Tim+Deluxe+It+just+wont+do",
+# "Junior+Jack+E+samba",
+# "Michael+Gray+Borderline",
+# "Axwell+Watch+the+sunrise",
+# "C+Mos+2+Million+ways+axwell+remix",
+# "Laurent+Wolf+Calinda",
+# "Rui+Da+Silva+Touch+me",
+# "Salome+de+bahia+Outro+lugar",
+# "Basement+Jaxx+Bingo+Bango",
+# ]
+
+def get_name_list():
+    
+    content = []
+    
+    with open('content.txt') as f:
+        #content = f.readlines()
+        for l in f:
+            content.append(l)
+    
+    # for item in content:
+        # item = item.replace(" - "," ")
+        # item = item.replace(" ","+")
+        # print(item)
+    
+    content = [s.replace(" - "," ") for s in content]
+    content = [s.replace(" ","+") for s in content]
+    
+    return content
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
     
+    name_list = get_name_list()
+    
+    for item in name_list:    
+        print(item)
+    
     if request.method == 'GET':
-        return render_template('main_play.html') 
+        return render_template('video.html') 
     
     # title = None
     # duration = None
